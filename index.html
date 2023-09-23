@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment 09 JS</title>
+</head>
+
+<style>
+    body{
+        background: black;
+    }
+    div{
+        width: 100px;
+        height: 5px;
+        background: white;
+        margin-left: 2px;
+    }
+    section{
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+    }
+    #lights{
+        margin-top: 45vh;
+    }
+    section>button{
+        margin-left: 15px;
+    }
+
+</style>
+<body>
+
+    <section id="lights">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+
+    </section>
+
+    <section>
+        <button type="button" id="start">Start</button>
+        <button type="button" id="stop">Stop</button>
+    </section>
+
+    <audio src="assets/audio.mp3" typeof="audio/mp3" id="audio"></audio>
+
+    <script src="assets/lib/jquery.min.js"></script>
+    <script>
+
+        let currentLight = 0;
+        let currentDirection="Right";
+        let lightCount = 7;
+        let intervalId = null;
+
+        var lightOn = {
+            background: "#d11f1f",
+            boxShadow:  "20px 20px 60px #b21a1a,20px -20px 60px #f02424"
+        }
+        setLight = () =>{
+
+            $("div").css("background", "white");
+
+            if (currentDirection==="Right") {
+
+                currentLight++
+
+                $("div").eq(currentLight).css("background", "red");
+
+                if (currentLight - 1 > 0) {
+                    $("div").eq(currentLight - 1).css("background", "#fc7b7b" , "box-shadow", "20px 20px 60px #d66969 -20px -20px 60px #ff8d8d");
+                    $("div").eq(currentLight - 2).css("background", "#ffbdbd");
+                }
+
+                if (currentLight===(lightCount-1)){
+                    currentDirection="Left";
+                }
+            }else {
+                currentLight--
+                $("div").eq(currentLight).css("background", "red");
+                $("div").eq(currentLight+1).css("background", "#fc7b7b");
+                $("div").eq(currentLight+2).css("background", "#ffbdbd")
+
+                if (currentLight ===0){
+                    currentDirection="Right";
+                }
+            }
+
+        }
+
+        $("#start").on('click', () => {
+
+            if (intervalId==null){
+                intervalId = setInterval(setLight, 100);
+                $("#audio")[0].play();
+            }
+
+        });
+
+        $("#stop").on('click', () => {
+            clearInterval(intervalId);
+            intervalId==null;
+            $("#audio")[0].pause();
+        });
+
+
+    </script>
+</body>
+</html>
