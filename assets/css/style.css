@@ -1,0 +1,20 @@
+body{
+    background: black;
+}
+div{
+    width: 100px;
+    height: 5px;
+    background: white;
+    margin-left: 2px;
+}
+section{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+#lights{
+    margin-top: 45vh;
+}
+section>button{
+    margin-left: 15px;
+}
